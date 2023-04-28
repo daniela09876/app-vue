@@ -35,7 +35,7 @@ export default {
           to: {name: 'coin-detail', params: {id: 'USD Coin'}},
         },
         {
-          title: 'Xrp',
+          title: 'XRP',
           to: {name: 'coin-detail', params: {id: 'XRP'}},
         },
         {
