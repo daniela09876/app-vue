@@ -1,7 +1,14 @@
 name: Code Quality checks
 on:
  pull_request:
-    
+    types: [opened, synchronize, reopened]
+    paths:
+      - '.github/workflows/quality.yaml'
+
+permissions:
+ contents: write
+ pull-requests: write
+
 jobs:
  prettier:
     name: Prettier
@@ -11,6 +18,10 @@ jobs:
         node-version: [18]
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          repository: ${{ github.repository }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: pnpm/action-setup@v2
         with:
           version: 8
@@ -28,13 +39,6 @@ jobs:
         with:
           commit_message: Apply formatting changes
           branch: ${{ github.head_ref }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
       - name: Check formatting with Prettier
         run: pnpm prettier:check:ci
-      - name: Verify GITHUB_TOKEN
-        run: |
-          echo "GITHUB_TOKEN is present"
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@github.com"
-          git commit --allow-empty -m "Test commit to verify GITHUB_TOKEN"
-          git push
