@@ -31,3 +31,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Check formatting with Prettier
         run: pnpm prettier:check:ci
+      - name: Verify GITHUB_TOKEN
+        run: |
+          echo "GITHUB_TOKEN is present"
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git commit --allow-empty -m "Test commit to verify GITHUB_TOKEN"
+          git push
