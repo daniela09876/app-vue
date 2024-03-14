@@ -10,13 +10,13 @@
 import PxHeader from '@/components/PxHeader'
 export default {
   name: 'app',
-  components: {PxHeader},
+  components: {PxHeader}
   data() {
     return {
       links: [
         {
           title: 'BTC',
-          to: {name: 'coin-detail', params: {id: 'bitcoin'}},
+          to: {name: 'coin-detail', params: {id: "bitcoin"}},
         },
         {
           title: 'ETH',
