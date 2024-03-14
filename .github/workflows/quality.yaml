@@ -1,14 +1,7 @@
 name: Code Quality checks
 on:
  pull_request:
-    types: [opened, synchronize, reopened]
-    paths:
-      - '.github/workflows/quality.yaml'
-
-permissions:
- contents: write
- pull-requests: write
-
+ 
 jobs:
  prettier:
     name: Prettier
@@ -39,6 +32,7 @@ jobs:
         with:
           commit_message: Apply formatting changes
           branch: ${{ github.head_ref }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Check formatting with Prettier
         run: pnpm prettier:check:ci
